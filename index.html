@@ -1,179 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Grade 9-12 Study</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grade 9-12 Study</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
-
-    body {
-      background: #f5f7fb;
-      color: #222;
-    }
-
-    header {
-      background: #2563eb;
-      color: white;
-      padding: 22px 15px;
-      text-align: center;
-    }
-
-    header h1 {
-      font-size: 25px;
-      margin-bottom: 8px;
-    }
-
-    header p {
-      font-size: 14px;
-    }
-
-    .container {
-      max-width: 1000px;
-      margin: auto;
-      padding: 20px 15px;
-    }
-
-    .welcome {
-      background: white;
-      padding: 22px;
-      border-radius: 15px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 10px #ddd;
-    }
-
-    .welcome h2 {
-      color: #2563eb;
-      margin-bottom: 10px;
-    }
-
-    .grades {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-    }
-
-    .grade {
-      background: white;
-      padding: 25px 15px;
-      border-radius: 15px;
-      text-align: center;
-      box-shadow: 0 2px 8px #ddd;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .grade:hover {
-      transform: translateY(-3px);
-    }
-
-    .grade h3 {
-      color: #2563eb;
-      margin-bottom: 8px;
-    }
-
-    .subjects {
-      margin-top: 25px;
-      display: none;
-    }
-
-    .subjects h2 {
-      margin-bottom: 15px;
-    }
-
-    .subject {
-      background: white;
-      padding: 18px;
-      margin-bottom: 12px;
-      border-radius: 12px;
-      box-shadow: 0 2px 7px #ddd;
-    }
-
-    .subject button {
-      float: right;
-      background: #2563eb;
-      color: white;
-      border: none;
-      padding: 9px 14px;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    .chapters {
-      clear: both;
-      padding-top: 15px;
-      display: none;
-    }
-
-    .chapter {
-      border-top: 1px solid #eee;
-      padding: 15px 5px;
-    }
-
-    .locked {
-      color: #777;
-    }
-
-    .buy {
-      background: #16a34a;
-      color: white;
-      border: none;
-      padding: 9px 15px;
-      border-radius: 7px;
-      margin-top: 8px;
-      cursor: pointer;
-    }
-
-    .payment {
-      display: none;
-      background: white;
-      padding: 20px;
-      margin-top: 20px;
-      border-radius: 15px;
-      box-shadow: 0 2px 10px #ddd;
-    }
-
-    .payment h2 {
-      color: #16a34a;
-      margin-bottom: 12px;
-    }
-
-    .payment input {
-      width: 100%;
-      padding: 12px;
-      margin: 8px 0;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-    }
-
-    .submit {
-      width: 100%;
-      padding: 12px;
-      background: #2563eb;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      margin-top: 8px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 30px 15px;
-      color: #777;
-    }
-
-    @media (max-width: 500px) {
-      .grades {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-  </style>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f5f7fb;
+  color:#222;
+}
+header{
+  background:#2563eb;
+  color:white;
+  text-align:center;
+  padding:25px 15px;
+}
+header h1{margin:0;font-size:30px}
+header p{font-size:18px}
+.container{
+  max-width:1000px;
+  margin:auto;
+  padding:20px;
+}
+.card{
+  background:white;
+  border-radius:15px;
+  padding:20px;
+  margin:15px 0;
+  box-shadow:0 3px 12px #ddd;
+}
+h2{color:#2563eb}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px;
+}
+button{
+  border:0;
+  border-radius:10px;
+  padding:14px 18px;
+  background:#2563eb;
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+}
+.subject{
+  background:white;
+  color:#2563eb;
+  border:2px solid #2563eb;
+  width:100%;
+}
+.subject:hover{background:#2563eb;color:white}
+.chapter{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin:10px 0;
+  padding:15px;
+  background:#f1f5ff;
+  border-radius:10px;
+}
+.price{
+  color:#15803d;
+  font-weight:bold;
+}
+.hidden{display:none}
+.back{
+  background:#555;
+  margin-bottom:15px;
+}
+input{
+  width:100%;
+  padding:13px;
+  margin:8px 0;
+  border:1px solid #ccc;
+  border-radius:8px;
+}
+footer{
+  text-align:center;
+  padding:30px;
+  color:#666;
+}
+@media(max-width:650px){
+  .grid{grid-template-columns:1fr}
+}
+</style>
 </head>
 
 <body>
@@ -185,7 +101,8 @@
 
 <div class="container">
 
-  <div class="welcome">
+<div id="home">
+  <div class="card">
     <h2>Welcome Students 👋</h2>
     <p>
       Grade 9-12 educational materials, notes, videos and practice questions.
@@ -194,172 +111,65 @@
 
   <h2>Choose Your Grade</h2>
 
-  <div class="grades">
+  <div class="grid">
+    <button onclick="openGrade(9)">📚 Grade 9</button>
+    <button onclick="openGrade(10)">📚 Grade 10</button>
+    <button onclick="openGrade(11)">📚 Grade 11</button>
+    <button onclick="openGrade(12)">📚 Grade 12</button>
+  </div>
+</div>
 
-    <div class="grade" onclick="showSubjects(9)">
-      <h3>Grade 9</h3>
-      <p>📖 Study Materials</p>
-    </div>
 
-    <div class="grade" onclick="showSubjects(10)">
-      <h3>Grade 10</h3>
-      <p>📖 Study Materials</p>
-    </div>
+<div id="subjects" class="hidden">
+  <button class="back" onclick="goHome()">← Back</button>
 
-    <div class="grade" onclick="showSubjects(11)">
-      <h3>Grade 11</h3>
-      <p>📖 Study Materials</p>
-    </div>
-
-    <div class="grade" onclick="showSubjects(12)">
-      <h3>Grade 12</h3>
-      <p>📖 Study Materials</p>
-    </div>
-
+  <div class="card">
+    <h2 id="gradeTitle"></h2>
+    <p>Choose a subject:</p>
   </div>
 
-  <div class="subjects" id="subjects">
+  <div id="subjectList" class="grid"></div>
+</div>
 
-    <h2 id="gradeTitle">Subjects</h2>
 
-    <div class="subject">
-      📐 Mathematics
-      <button onclick="toggleChapters('math')">Chapters</button>
+<div id="chapters" class="hidden">
+  <button class="back" onclick="backToSubjects()">← Subjects</button>
 
-      <div class="chapters" id="math">
-        <div class="chapter">
-          🔒 Chapter 1
-          <br>
-          <small>Notes + Video + Practice Questions</small>
-          <br>
-          <button class="buy" onclick="openPayment('Mathematics Chapter 1')">
-            Buy — 10 Birr
-          </button>
-        </div>
-
-        <div class="chapter">
-          🔒 Chapter 2
-          <br>
-          <small>Notes + Video + Practice Questions</small>
-          <br>
-          <button class="buy" onclick="openPayment('Mathematics Chapter 2')">
-            Buy — 10 Birr
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="subject">
-      🔬 Physics
-      <button onclick="toggleChapters('physics')">Chapters</button>
-
-      <div class="chapters" id="physics">
-        <div class="chapter">
-          🔒 Chapter 1
-          <br>
-          <small>Notes + Video + Practice Questions</small>
-          <br>
-          <button class="buy" onclick="openPayment('Physics Chapter 1')">
-            Buy — 10 Birr
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="subject">
-      🧪 Chemistry
-      <button onclick="toggleChapters('chemistry')">Chapters</button>
-
-      <div class="chapters" id="chemistry">
-        <div class="chapter">
-          🔒 Chapter 1
-          <br>
-          <small>Notes + Video + Practice Questions</small>
-          <br>
-          <button class="buy" onclick="openPayment('Chemistry Chapter 1')">
-            Buy — 10 Birr
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="subject">
-      🧬 Biology
-      <button onclick="toggleChapters('biology')">Chapters</button>
-
-      <div class="chapters" id="biology">
-        <div class="chapter">
-          🔒 Chapter 1
-          <br>
-          <small>Notes + Video + Practice Questions</small>
-          <br>
-          <button class="buy" onclick="openPayment('Biology Chapter 1')">
-            Buy — 10 Birr
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="subject">
-      🌍 Geography
-      <button onclick="toggleChapters('geography')">Chapters</button>
-
-      <div class="chapters" id="geography">
-        <div class="chapter">
-          🔒 Chapter 1
-          <br>
-          <small>Notes + Video + Practice Questions</small>
-          <br>
-          <button class="buy" onclick="openPayment('Geography Chapter 1')">
-            Buy — 10 Birr
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="subject">
-      📜 History
-      <button onclick="toggleChapters('history')">Chapters</button>
-
-      <div class="chapters" id="history">
-        <div class="chapter">
-          🔒 Chapter 1
-          <br>
-          <small>Notes + Video + Practice Questions</small>
-          <br>
-          <button class="buy" onclick="openPayment('History Chapter 1')">
-            Buy — 10 Birr
-          </button>
-        </div>
-      </div>
-    </div>
-
+  <div class="card">
+    <h2 id="subjectTitle"></h2>
+    <p>Choose a chapter. Each chapter costs <b>10 Birr</b>.</p>
   </div>
 
-  <div class="payment" id="payment">
+  <div id="chapterList"></div>
+</div>
 
-    <h2>💳 Payment</h2>
 
-    <p id="selected"></p>
+<div id="payment" class="hidden">
+  <button class="back" onclick="backToChapters()">← Chapters</button>
 
-    <p><b>Price: 10 Ethiopian Birr</b></p>
+  <div class="card">
+    <h2>💳 Chapter Payment</h2>
+
+    <p><b>Price: 10 Birr</b></p>
 
     <p>
-      Pay using Telebirr to the website payment number.
+      Pay using <b>Telebirr</b> to:
+      <br>
+      <strong style="font-size:22px">0908170534</strong>
     </p>
 
-    <input
-      type="text"
-      placeholder="Enter Telebirr transaction/reference number"
-    >
+    <p>After payment, enter your information below.</p>
 
-    <input type="text" placeholder="Your name">
+    <input id="studentName" placeholder="Your name">
 
-    <button class="submit" onclick="submitPayment()">
+    <input id="transaction"
+           placeholder="Telebirr transaction/reference number">
+
+    <button onclick="submitPayment()">
       Submit Payment
     </button>
-
   </div>
+</div>
 
 </div>
 
@@ -367,47 +177,138 @@
   © 2026 Grade 9-12 Study
 </footer>
 
+
 <script>
 
-  function showSubjects(grade) {
-    document.getElementById("subjects").style.display = "block";
-    document.getElementById("gradeTitle").innerText =
-      "Grade " + grade + " — Subjects";
+const subjects = [
+  "Mathematics",
+  "Physics",
+  "Biology",
+  "Chemistry",
+  "Economics",
+  "Citizenship",
+  "HPE",
+  "Amharic",
+  "IT",
+  "English",
+  "History",
+  "Geography"
+];
 
-    window.scrollTo({
-      top: document.getElementById("subjects").offsetTop,
-      behavior: "smooth"
-    });
+let selectedGrade = "";
+let selectedSubject = "";
+let selectedChapter = "";
+
+function openGrade(grade){
+
+  selectedGrade = grade;
+
+  document.getElementById("home").classList.add("hidden");
+  document.getElementById("subjects").classList.remove("hidden");
+
+  document.getElementById("gradeTitle").innerText =
+    "Grade " + grade + " Subjects";
+
+  const list = document.getElementById("subjectList");
+  list.innerHTML = "";
+
+  subjects.forEach(subject => {
+
+    const button = document.createElement("button");
+
+    button.className = "subject";
+    button.innerText = "📖 " + subject;
+
+    button.onclick = function(){
+      openSubject(subject);
+    };
+
+    list.appendChild(button);
+  });
+}
+
+
+function openSubject(subject){
+
+  selectedSubject = subject;
+
+  document.getElementById("subjects").classList.add("hidden");
+  document.getElementById("chapters").classList.remove("hidden");
+
+  document.getElementById("subjectTitle").innerText =
+    "Grade " + selectedGrade + " - " + subject;
+
+  const list = document.getElementById("chapterList");
+  list.innerHTML = "";
+
+  for(let i=1;i<=10;i++){
+
+    const div = document.createElement("div");
+
+    div.className = "chapter";
+
+    div.innerHTML =
+      "<div><b>Chapter " + i +
+      "</b><br><span class='price'>10 Birr</span></div>" +
+      "<button onclick=\"openPayment(" + i + ")\">🔒 Buy</button>";
+
+    list.appendChild(div);
+  }
+}
+
+
+function openPayment(chapter){
+
+  selectedChapter = chapter;
+
+  document.getElementById("chapters").classList.add("hidden");
+  document.getElementById("payment").classList.remove("hidden");
+}
+
+
+function submitPayment(){
+
+  const name =
+    document.getElementById("studentName").value.trim();
+
+  const transaction =
+    document.getElementById("transaction").value.trim();
+
+  if(!name || !transaction){
+
+    alert("Please enter your name and transaction number.");
+
+    return;
   }
 
-  function toggleChapters(id) {
-    const element = document.getElementById(id);
+  alert(
+    "Payment information submitted successfully. " +
+    "Your payment will be checked by the admin."
+  );
+}
 
-    if (element.style.display === "block") {
-      element.style.display = "none";
-    } else {
-      element.style.display = "block";
-    }
-  }
 
-  function openPayment(chapter) {
-    document.getElementById("payment").style.display = "block";
-    document.getElementById("selected").innerText =
-      "Selected: " + chapter;
+function backToSubjects(){
 
-    window.scrollTo({
-      top: document.getElementById("payment").offsetTop,
-      behavior: "smooth"
-    });
-  }
+  document.getElementById("chapters").classList.add("hidden");
+  document.getElementById("subjects").classList.remove("hidden");
+}
 
-  function submitPayment() {
-    alert(
-      "Payment submitted. Admin verification is required before the chapter is unlocked."
-    );
-  }
+
+function backToChapters(){
+
+  document.getElementById("payment").classList.add("hidden");
+  document.getElementById("chapters").classList.remove("hidden");
+}
+
+
+function goHome(){
+
+  document.getElementById("subjects").classList.add("hidden");
+  document.getElementById("home").classList.remove("hidden");
+}
 
 </script>
 
 </body>
-  </html>
+      </html>
