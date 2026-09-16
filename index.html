@@ -1,9 +1,40 @@
-@media(max-width:650px){
-  .grid{grid-template-columns:1fr}
-}
-</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade 9-12 Study</title>
+  <style>
+    * { box-sizing: border-box; font-family: Arial, sans-serif; }
+    body { margin: 0; background-color: #f4f6f9; color: #333; }
+    header { background: #2563eb; color: white; text-align: center; padding: 25px 15px; }
+    header h1 { margin: 0; font-size: 26px; }
+    header p { margin: 5px 0 0; opacity: 0.9; }
+    
+    .container { max-width: 600px; margin: 20px auto; padding: 0 15px; }
+    .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 20px; }
+    
+    h2 { color: #1e40af; margin-top: 0; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px; }
+    
+    .btn-card { background: white; border: 1.5px solid #e5e7eb; border-radius: 10px; padding: 15px; text-align: center; cursor: pointer; transition: 0.2s; }
+    .btn-card:hover { border-color: #2563eb; background: #eff6ff; }
+    .btn-card h3 { margin: 0; color: #2563eb; font-size: 16px; }
+    .btn-card p { margin: 5px 0 0; font-size: 13px; color: #6b7280; }
+    
+    .list-btn { display: block; width: 100%; padding: 12px; margin-bottom: 10px; background: white; border: 1.5px solid #2563eb; color: #2563eb; border-radius: 8px; font-weight: bold; text-align: center; cursor: pointer; }
+    .list-btn:hover { background: #2563eb; color: white; }
+    
+    .btn-back { background: #4b5563; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; margin-bottom: 15px; }
+    .btn-submit { background: #2563eb; color: white; border: none; width: 100%; padding: 12px; border-radius: 8px; font-size: 16px; cursor: pointer; margin-top: 10px; }
+    
+    input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
+    .hidden { display: none; }
+    
+    .telebirr-box { background: #fffbe3; border: 1px solid #ffe58f; padding: 15px; border-radius: 8px; margin: 15px 0; }
+    footer { text-align: center; color: #6b7280; padding: 20px; font-size: 14px; }
+  </style>
 </head>
-
 <body>
 
 <header>
@@ -13,75 +44,76 @@
 
 <div class="container">
 
-<div id="home">
-  <div class="card">
+  <!-- STEP 1: Welcome & Grade Selection -->
+  <div id="step-grade" class="card">
     <h2>Welcome Students 👋</h2>
-    <p>
-      Grade 9-12 educational materials, notes, videos and practice questions.
-    </p>
+    <p>Grade 9-12 educational materials, notes, videos and practice questions.</p>
+    
+    <h3 style="margin-top:20px;">Choose Your Grade</h3>
+    <div class="grid">
+      <div class="btn-card" onclick="selectGrade('Grade 9')">
+        <h3>Grade 9</h3>
+        <p>📖 Study Materials</p>
+      </div>
+      <div class="btn-card" onclick="selectGrade('Grade 10')">
+        <h3>Grade 10</h3>
+        <p>📖 Study Materials</p>
+      </div>
+      <div class="btn-card" onclick="selectGrade('Grade 11')">
+        <h3>Grade 11</h3>
+        <p>📖 Study Materials</p>
+      </div>
+      <div class="btn-card" onclick="selectGrade('Grade 12')">
+        <h3>Grade 12</h3>
+        <p>📖 Study Materials</p>
+      </div>
+    </div>
   </div>
 
-  <h2>Choose Your Grade</h2>
-
-  <div class="grid">
-    <button onclick="openGrade(9)">📚 Grade 9</button>
-    <button onclick="openGrade(10)">📚 Grade 10</button>
-    <button onclick="openGrade(11)">📚 Grade 11</button>
-    <button onclick="openGrade(12)">📚 Grade 12</button>
-  </div>
-</div>
-
-
-<div id="subjects" class="hidden">
-  <button class="back" onclick="goHome()">← Back</button>
-
-  <div class="card">
-    <h2 id="gradeTitle"></h2>
+  <!-- STEP 2: Subject Selection -->
+  <div id="step-subject" class="card hidden">
+    <button class="btn-back" onclick="showStep('step-grade')">← Back</button>
+    <h2 id="selected-grade-title">Grade Subjects</h2>
     <p>Choose a subject:</p>
+    
+    <button class="list-btn" onclick="selectSubject('Mathematics')">📖 Mathematics</button>
+    <button class="list-btn" onclick="selectSubject('Physics')">📖 Physics</button>
+    <button class="list-btn" onclick="selectSubject('Biology')">📖 Biology</button>
+    <button class="list-btn" onclick="selectSubject('Chemistry')">📖 Chemistry</button>
+    <button class="list-btn" onclick="selectSubject('Economics')">📖 Economics</button>
+    <button class="list-btn" onclick="selectSubject('Citizenship')">📖 Citizenship</button>
   </div>
 
-  <div id="subjectList" class="grid"></div>
-</div>
-
-
-<div id="chapters" class="hidden">
-  <button class="back" onclick="backToSubjects()">← Subjects</button>
-
-  <div class="card">
-    <h2 id="subjectTitle"></h2>
+  <!-- STEP 3: Chapter Selection -->
+  <div id="step-chapter" class="card hidden">
+    <button class="btn-back" onclick="showStep('step-subject')">← Back</button>
+    <h2 id="selected-subject-title">Chapters</h2>
     <p>Choose a chapter. Each chapter costs <b>10 Birr</b>.</p>
+
+    <button class="list-btn" onclick="selectChapter('Chapter 1')">📄 Chapter 1</button>
+    <button class="list-btn" onclick="selectChapter('Chapter 2')">📄 Chapter 2</button>
+    <button class="list-btn" onclick="selectChapter('Chapter 3')">📄 Chapter 3</button>
+    <button class="list-btn" onclick="selectChapter('Chapter 4')">📄 Chapter 4</button>
   </div>
 
-  <div id="chapterList"></div>
-</div>
-
-
-<div id="payment" class="hidden">
-  <button class="back" onclick="backToChapters()">← Chapters</button>
-
-  <div class="card">
+  <!-- STEP 4: Payment Form -->
+  <div id="step-payment" class="card hidden">
+    <button class="btn-back" onclick="showStep('step-chapter')">← Back</button>
     <h2>💳 Chapter Payment</h2>
-
     <p><b>Price: 10 Birr</b></p>
+    
+    <div class="telebirr-box">
+      <b>Pay using Telebirr to:</b>
+      <h3 style="color:#d97706; margin: 5px 0;">0908170534</h3>
+      <p style="margin:0; font-size:13px;">After payment, enter your information below.</p>
+    </div>
 
-    <p>
-      Pay using <b>Telebirr</b> to:
-      <br>
-      <strong style="font-size:22px">0908170534</strong>
-    </p>
-
-    <p>After payment, enter your information below.</p>
-
-    <input id="studentName" placeholder="Your name">
-
-    <input id="transaction"
-           placeholder="Telebirr transaction/reference number">
-
-    <button onclick="submitPayment()">
-      Submit Payment
-    </button>
+    <input type="text" id="studentName" placeholder="Your name">
+    <input type="text" id="studentPhone" placeholder="Phone number">
+    <input type="text" id="txnRef" placeholder="Telebirr transaction/reference number">
+    
+    <button class="btn-submit" onclick="submitPayment()">Submit Payment</button>
   </div>
-</div>
 
 </div>
 
@@ -89,139 +121,44 @@
   © 2026 Grade 9-12 Study
 </footer>
 
-
 <script>
+  let selectedData = { grade: '', subject: '', chapter: '' };
 
-const subjects = [
-  "Mathematics",
-  "Physics",
-  "Biology",
-  "Chemistry",
-  "Economics",
-  "Citizenship",
-  "HPE",
-  "Amharic",
-  "IT",
-  "English",
-  "History",
-  "Geography"
-];
-
-let selectedGrade = "";
-let selectedSubject = "";
-let selectedChapter = "";
-
-function openGrade(grade){
-
-  selectedGrade = grade;
-
-  document.getElementById("home").classList.add("hidden");
-  document.getElementById("subjects").classList.remove("hidden");
-
-  document.getElementById("gradeTitle").innerText =
-    "Grade " + grade + " Subjects";
-
-  const list = document.getElementById("subjectList");
-  list.innerHTML = "";
-
-  subjects.forEach(subject => {
-
-    const button = document.createElement("button");
-
-    button.className = "subject";
-    button.innerText = "📖 " + subject;
-
-    button.onclick = function(){
-      openSubject(subject);
-    };
-
-    list.appendChild(button);
-  });
-}
-
-
-function openSubject(subject){
-
-  selectedSubject = subject;
-
-  document.getElementById("subjects").classList.add("hidden");
-  document.getElementById("chapters").classList.remove("hidden");
-
-  document.getElementById("subjectTitle").innerText =
-    "Grade " + selectedGrade + " - " + subject;
-
-  const list = document.getElementById("chapterList");
-  list.innerHTML = "";
-
-  for(let i=1;i<=10;i++){
-
-    const div = document.createElement("div");
-
-    div.className = "chapter";
-
-    div.innerHTML =
-      "<div><b>Chapter " + i +
-      "</b><br><span class='price'>10 Birr</span></div>" +
-      "<button onclick=\"openPayment(" + i + ")\">🔒 Buy</button>";
-
-    list.appendChild(div);
-  }
-}
-
-
-function openPayment(chapter){
-
-  selectedChapter = chapter;
-
-  document.getElementById("chapters").classList.add("hidden");
-  document.getElementById("payment").classList.remove("hidden");
-}
-
-
-function submitPayment(){
-
-  const name =
-    document.getElementById("studentName").value.trim();
-
-  const transaction =
-    document.getElementById("transaction").value.trim();
-
-  if(!name || !transaction){
-
-    alert("Please enter your name and transaction number.");
-
-    return;
+  function showStep(stepId) {
+    document.querySelectorAll('.container > div').forEach(div => div.classList.add('hidden'));
+    document.getElementById(stepId).classList.remove('hidden');
   }
 
-  alert(
-    "Payment information submitted successfully. " +
-    "Your payment will be checked by the admin."
-  );
-}
+  function selectGrade(grade) {
+    selectedData.grade = grade;
+    document.getElementById('selected-grade-title').innerText = grade + " Subjects";
+    showStep('step-subject');
+  }
 
+  function selectSubject(subject) {
+    selectedData.subject = subject;
+    document.getElementById('selected-subject-title').innerText = subject + " Chapters";
+    showStep('step-chapter');
+  }
 
-function backToSubjects(){
+  function selectChapter(chapter) {
+    selectedData.chapter = chapter;
+    showStep('step-payment');
+  }
 
-  document.getElementById("chapters").classList.add("hidden");
-  document.getElementById("subjects").classList.remove("hidden");
-}
+  function submitPayment() {
+    const name = document.getElementById('studentName').value;
+    const phone = document.getElementById('studentPhone').value;
+    const txn = document.getElementById('txnRef').value;
 
-
-function backToChapters(){
-
-  document.getElementById("payment").classList.add("hidden");
-  document.getElementById("chapters").classList.remove("hidden");
-}
-
-
-function goHome(){
-
-  document.getElementById("subjects").classList.add("hidden");
-  document.getElementById("home").classList.remove("hidden");
-}
-
+    if(!name || !phone || !txn) {
+      alert("እባክዎን ሁሉንም መረጃዎች ይሙሉ!");
+      return;
+    }
+    alert("መረጃዎ በተሳካ ሁኔታ ተልኳል! ክፍያው ሲረጋገጥ ይከፈትልዎታል።");
+    showStep('step-grade');
+  }
 </script>
 
 </body>
   </html>
-  
