@@ -76,38 +76,36 @@
     <h2 id="selected-grade-title">Grade Subjects</h2>
     <p>Choose a subject:</p>
     
-    <button class="list-btn" onclick="selectSubject('Mathematics')">📖 Mathematics</button>
-    <button class="list-btn" onclick="selectSubject('Physics')">📖 Physics</button>
-    <button class="list-btn" onclick="selectSubject('Biology')">📖 Biology</button>
-    <button class="list-btn" onclick="selectSubject('Chemistry')">📖 Chemistry</button>
-    <button class="list-btn" onclick="selectSubject('Economics')">📖 Economics</button>
-    <button class="list-btn" onclick="selectSubject('Citizenship')">📖 Citizenship</button>
-    <button class="list-btn" onclick="selectSubject('HPE')">📖 HPE</button>
-    <button class="list-btn" onclick="selectSubject('Amharic')">📖 Amharic</button>
-    <button class="list-btn" onclick="selectSubject('IT')">📖 IT</button>
-    <button class="list-btn" onclick="selectSubject('English')">📖 English</button>
-    <button class="list-btn" onclick="selectSubject('History')">📖 History</button>
-    <button class="list-btn" onclick="selectSubject('Geography')">📖 Geography</button>
+    <button class="list-btn" onclick="selectSubject('Mathematics', 12)">📖 Mathematics</button>
+    <button class="list-btn" onclick="selectSubject('Physics', 10)">📖 Physics</button>
+    <button class="list-btn" onclick="selectSubject('Biology', 10)">📖 Biology</button>
+    <button class="list-btn" onclick="selectSubject('Chemistry', 10)">📖 Chemistry</button>
+    <button class="list-btn" onclick="selectSubject('Economics', 8)">📖 Economics</button>
+    <button class="list-btn" onclick="selectSubject('Citizenship', 7)">📖 Citizenship</button>
+    <button class="list-btn" onclick="selectSubject('HPE', 7)">📖 HPE</button>
+    <button class="list-btn" onclick="selectSubject('Amharic', 10)">📖 Amharic</button>
+    <button class="list-btn" onclick="selectSubject('IT', 8)">📖 IT</button>
+    <button class="list-btn" onclick="selectSubject('English', 10)">📖 English</button>
+    <button class="list-btn" onclick="selectSubject('History', 10)">📖 History</button>
+    <button class="list-btn" onclick="selectSubject('Geography', 10)">📖 Geography</button>
   </div>
 
-  <!-- STEP 3: Chapter Selection -->
+  <!-- STEP 3: Dynamic Chapter Selection -->
   <div id="step-chapter" class="card hidden">
     <button class="btn-back" onclick="showStep('step-subject')">← Back</button>
     <h2 id="selected-subject-title">Chapters</h2>
     <p>Choose a chapter. Each chapter costs <b>10 Birr</b>.</p>
 
-    <button class="list-btn" onclick="selectChapter('Chapter 1')">📄 Chapter 1</button>
-    <button class="list-btn" onclick="selectChapter('Chapter 2')">📄 Chapter 2</button>
-    <button class="list-btn" onclick="selectChapter('Chapter 3')">📄 Chapter 3</button>
-    <button class="list-btn" onclick="selectChapter('Chapter 4')">📄 Chapter 4</button>
-    <button class="list-btn" onclick="selectChapter('Chapter 5')">📄 Chapter 5</button>
+    <div id="chapters-list">
+      <!-- Dynamic Chapters Will Appear Here -->
+    </div>
   </div>
 
   <!-- STEP 4: Payment Form -->
   <div id="step-payment" class="card hidden">
     <button class="btn-back" onclick="showStep('step-chapter')">← Back</button>
     <h2>💳 Chapter Payment</h2>
-    <p><b>Price: 10 Birr</b></p>
+    <p><b id="payment-details">Price: 10 Birr</b></p>
     
     <div class="telebirr-box">
       <b>Pay using Telebirr to:</b>
@@ -142,14 +140,28 @@
     showStep('step-subject');
   }
 
-  function selectSubject(subject) {
+  function selectSubject(subject, totalChapters) {
     selectedData.subject = subject;
     document.getElementById('selected-subject-title').innerText = subject + " Chapters";
+    
+    // Generate Chapter Buttons Dynamically
+    const container = document.getElementById('chapters-list');
+    container.innerHTML = '';
+    
+    for (let i = 1; i <= totalChapters; i++) {
+      const btn = document.createElement('button');
+      btn.className = 'list-btn';
+      btn.innerText = `📄 Chapter ${i}`;
+      btn.onclick = () => selectChapter(`Chapter ${i}`);
+      container.appendChild(btn);
+    }
+    
     showStep('step-chapter');
   }
 
   function selectChapter(chapter) {
     selectedData.chapter = chapter;
+    document.getElementById('payment-details').innerText = `${selectedData.grade} • ${selectedData.subject} • ${chapter} (10 Birr)`;
     showStep('step-payment');
   }
 
@@ -162,7 +174,14 @@
       alert("እባክዎን ሁሉንም መረጃዎች ይሙሉ!");
       return;
     }
-    alert("መረጃዎ በተሳካ ሁኔታ ተልኳል! ክፍያው ሲረጋገጥ ይከፈትልዎታል።");
+    
+    alert(`መረጃዎ በተሳካ ሁኔታ ተልኳል!\n\nክፍያዎ ሲረጋገጥ የ${selectedData.subject} (${selectedData.chapter}) ኖት ይከፈትልዎታል።`);
+    
+    // Reset Form
+    document.getElementById('studentName').value = '';
+    document.getElementById('studentPhone').value = '';
+    document.getElementById('txnRef').value = '';
+    
     showStep('step-grade');
   }
 </script>
