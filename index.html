@@ -1,9 +1,415 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>eNotes Test</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade 9-12 Study - Your Study Partner</title>
+  
+  <meta name="theme-color" content="#1d4ed8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
+    body { background-color: #f1f5f9; color: #1e293b; padding-bottom: 70px; }
+    
+    /* HEADER */
+    header { background: #1e40af; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    .logo-container { display: flex; align-items: center; gap: 10px; }
+    .logo-img { width: 42px; height: 42px; border-radius: 10px; background: white; padding: 2px; }
+    .logo-text h1 { font-size: 18px; font-weight: bold; margin: 0; line-height: 1.2; }
+    .logo-text p { font-size: 11px; opacity: 0.8; margin: 0; }
+    .menu-btn { background: none; border: none; color: white; font-size: 22px; cursor: pointer; }
+
+    .container { max-width: 500px; margin: 0 auto; padding: 15px; }
+
+    /* BANNER CARD */
+    .banner-card { background: linear-gradient(135deg, #1e3a8a, #3b82f6); color: white; border-radius: 16px; padding: 20px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2); }
+    .banner-text h2 { font-size: 18px; margin-bottom: 6px; }
+    .banner-text p { font-size: 13px; opacity: 0.9; }
+    .banner-icon { font-size: 45px; opacity: 0.9; }
+
+    /* MAIN ACTION GRID */
+    .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+    .action-card { padding: 16px; border-radius: 14px; color: white; text-align: center; cursor: pointer; transition: transform 0.2s; box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
+    .action-card:active { transform: scale(0.97); }
+    .action-card i { font-size: 28px; margin-bottom: 8px; display: block; }
+    .action-card h3 { font-size: 15px; font-weight: 600; }
+
+    .bg-textbooks { background: #2563eb; }
+    .bg-notes { background: #16a34a; }
+    .bg-exercises { background: #ea580c; }
+    .bg-videos { background: #9333ea; }
+
+    /* SECTION TITLE */
+    .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .section-header h3 { font-size: 16px; color: #1e293b; font-weight: 700; }
+    .section-header a { font-size: 12px; color: #2563eb; text-decoration: none; font-weight: 600; }
+
+    /* SUBJECT LIST */
+    .subject-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+    .subject-item { background: white; padding: 14px 16px; border-radius: 12px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 5px rgba(0,0,0,0.03); cursor: pointer; border: 1px solid #e2e8f0; }
+    .subject-info { display: flex; align-items: center; gap: 12px; }
+    .subject-icon { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; }
+    .subject-text h4 { font-size: 14px; margin: 0; color: #0f172a; }
+    .subject-text p { font-size: 11px; color: #64748b; margin-top: 2px; }
+
+    /* CARD CONTAINER & BUTTONS */
+    .card { background: white; padding: 20px; border-radius: 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.04); margin-bottom: 20px; }
+    .btn-back { background: #64748b; color: white; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; margin-bottom: 15px; font-size: 13px; font-weight: 600; }
+    .list-btn { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 14px; margin-bottom: 10px; background: white; border: 1.5px solid #e2e8f0; color: #1e293b; border-radius: 10px; font-weight: 600; text-align: left; cursor: pointer; font-size: 14px; }
+    .list-btn:hover { border-color: #2563eb; background: #eff6ff; }
+    .price-badge { background: #dcfce7; color: #15803d; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+    .btn-submit { background: #2563eb; color: white; border: none; width: 100%; padding: 14px; border-radius: 10px; font-size: 15px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+
+    input { width: 100%; padding: 12px; margin: 8px 0 16px 0; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; }
+    .hidden { display: none; }
+    
+    .telebirr-box { background: #fffbe3; border: 1px solid #fde047; padding: 15px; border-radius: 10px; margin: 15px 0; text-align: center; }
+
+    /* SOCIAL LINKS */
+    .social-section { display: flex; gap: 10px; margin-bottom: 20px; }
+    .social-btn { flex: 1; padding: 10px; text-align: center; color: white; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .telegram-btn { background-color: #0088cc; }
+    .tiktok-btn { background-color: #000000; }
+
+    /* BOTTOM NAV BAR */
+    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #e2e8f0; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); }
+    .nav-item { display: flex; flex-direction: column; align-items: center; color: #64748b; text-decoration: none; font-size: 11px; cursor: pointer; }
+    .nav-item.active { color: #2563eb; font-weight: bold; }
+    .nav-item i { font-size: 18px; margin-bottom: 3px; }
+
+    /* SIDE DRAWER */
+    .menu-drawer { position: fixed; top: 0; right: -280px; width: 260px; height: 100%; background: white; box-shadow: -2px 0 10px rgba(0,0,0,0.1); transition: 0.3s; z-index: 1000; padding: 20px; }
+    .menu-drawer.open { right: 0; }
+    .menu-item { display: flex; align-items: center; gap: 12px; width: 100%; padding: 14px 0; border-bottom: 1px solid #f1f5f9; color: #334155; text-decoration: none; font-size: 15px; cursor: pointer; background: none; border: none; text-align: left; }
+    .close-menu { background: #f1f5f9; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; float: right; font-weight: bold; }
+  </style>
 </head>
 <body>
-  <h1 style="color: blue; text-align: center; margin-top: 50px;">eNotes Website Working!</h1>
+
+<header>
+  <div class="logo-container">
+    <!-- SVG Grade 9-12 Study Logo -->
+    <svg class="logo-img" viewBox="0 0 100 100">
+      <rect width="100" height="100" rx="20" fill="#2563eb"/>
+      <path d="M50 15 L85 35 L50 55 L15 35 Z" fill="#ffffff"/>
+      <path d="M30 45 L30 65 Q50 78 70 65 L70 45" fill="none" stroke="#ffffff" stroke-width="5"/>
+      <path d="M20 75 Q50 60 80 75 L80 82 Q50 67 20 82 Z" fill="#fbbf24"/>
+    </svg>
+    <div class="logo-text">
+      <h1>Grade 9-12 Study</h1>
+      <p>Learn • Practice • Succeed</p>
+    </div>
+  </div>
+  <button class="menu-btn" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
+</header>
+
+<!-- SIDE NAVIGATION MENU -->
+<div id="menuDrawer" class="menu-drawer">
+  <button class="close-menu" onclick="toggleMenu()">✕ Close</button>
+  <h3 style="margin-top: 40px; color: #1e3a8a;">More Options</h3>
+  <button class="menu-item" onclick="openPage('step-profile')"><i class="fa-solid fa-user"></i> Student Profile</button>
+  <button class="menu-item" onclick="openPage('step-exam-prep')"><i class="fa-solid fa-pen-to-square"></i> Exam Preparation</button>
+  <a href="https://t.me/Ethio_note0" target="_blank" class="menu-item"><i class="fa-brands fa-telegram" style="color: #0088cc;"></i> Telegram Channel</a>
+  <a href="https://www.tiktok.com/@ethio.s_" target="_blank" class="menu-item"><i class="fa-brands fa-tiktok"></i> TikTok Page</a>
+</div>
+
+<div class="container">
+
+  <!-- HOME PAGE VIEW -->
+  <div id="step-home">
+    
+    <!-- SOCIAL LINKS -->
+    <div class="social-section">
+      <a href="https://t.me/Ethio_note0" target="_blank" class="social-btn telegram-btn"><i class="fa-brands fa-telegram"></i> Telegram</a>
+      <a href="https://www.tiktok.com/@ethio.s_" target="_blank" class="social-btn tiktok-btn"><i class="fa-brands fa-tiktok"></i> TikTok</a>
+    </div>
+
+    <!-- BANNER CARD -->
+    <div class="banner-card">
+      <div class="banner-text">
+        <h2>Big Dreams Need<br>Good Preparation</h2>
+        <p>Choose your grade and start studying!</p>
+      </div>
+      <div class="banner-icon">📚</div>
+    </div>
+
+    <!-- MAIN ACTION GRID -->
+    <div class="action-grid">
+      <div class="action-card bg-textbooks" onclick="openPage('step-grade')">
+        <i class="fa-solid fa-book-open"></i>
+        <h3>Textbooks</h3>
+      </div>
+      <div class="action-card bg-notes" onclick="openPage('step-grade')">
+        <i class="fa-solid fa-file-lines"></i>
+        <h3>Notes</h3>
+      </div>
+      <div class="action-card bg-exercises" onclick="openPage('step-exam-prep')">
+        <i class="fa-solid fa-pencil"></i>
+        <h3>Exercises</h3>
+      </div>
+      <div class="action-card bg-videos" onclick="alert('Videos feature coming soon!')">
+        <i class="fa-solid fa-circle-play"></i>
+        <h3>Videos</h3>
+      </div>
+    </div>
+
+    <!-- POPULAR SUBJECTS SECTION -->
+    <div class="section-header">
+      <h3>Select Subject</h3>
+      <a href="#" onclick="openPage('step-grade')">View All Grade</a>
+    </div>
+
+    <div class="subject-list">
+      <div class="subject-item" onclick="openPage('step-grade')">
+        <div class="subject-info">
+          <div class="subject-icon" style="background: #2563eb;"><i class="fa-solid fa-calculator"></i></div>
+          <div class="subject-text">
+            <h4>Mathematics</h4>
+            <p>Grade 9 - 12 Summary & Worksheets</p>
+          </div>
+        </div>
+        <i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i>
+      </div>
+
+      <div class="subject-item" onclick="openPage('step-grade')">
+        <div class="subject-info">
+          <div class="subject-icon" style="background: #16a34a;"><i class="fa-solid fa-atom"></i></div>
+          <div class="subject-text">
+            <h4>Physics</h4>
+            <p>Grade 9 - 12 Key Points & Exam Papers</p>
+          </div>
+        </div>
+        <i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i>
+      </div>
+
+      <div class="subject-item" onclick="openPage('step-grade')">
+        <div class="subject-info">
+          <div class="subject-icon" style="background: #ea580c;"><i class="fa-solid fa-flask"></i></div>
+          <div class="subject-text">
+            <h4>Chemistry</h4>
+            <p>Grade 9 - 12 Short Notes & Answers</p>
+          </div>
+        </div>
+        <i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- STEP: GRADE SELECTION -->
+  <div id="step-grade" class="card hidden">
+    <button class="btn-back" onclick="openPage('step-home')">← Back Home</button>
+    <h2>Choose Your Grade</h2>
+    <p style="margin-bottom:15px; color:#64748b; font-size:13px;">ክፍልዎን ይምረጡ፡</p>
+
+    <button class="list-btn" onclick="selectGrade('Grade 9')">🎓 Grade 9 <span>Notes & Worksheets</span></button>
+    <button class="list-btn" onclick="selectGrade('Grade 10')">🎓 Grade 10 <span>Notes & Worksheets</span></button>
+    <button class="list-btn" onclick="selectGrade('Grade 11')">🎓 Grade 11 <span>Notes & Worksheets</span></button>
+    <button class="list-btn" onclick="selectGrade('Grade 12')">🎓 Grade 12 <span>Notes & Worksheets</span></button>
+  </div>
+
+  <!-- STEP: SUBJECT SELECTION -->
+  <div id="step-subject" class="card hidden">
+    <button class="btn-back" onclick="openPage('step-grade')">← Back</button>
+    <h2 id="selected-grade-title">Grade Subjects</h2>
+    <p style="margin-bottom:15px; color:#64748b; font-size:13px;">Subject ይምረጡ፡</p>
+    
+    <button class="list-btn" onclick="selectSubject('Mathematics')">📖 Mathematics</button>
+    <button class="list-btn" onclick="selectSubject('Physics')">📖 Physics</button>
+    <button class="list-btn" onclick="selectSubject('Biology')">📖 Biology</button>
+    <button class="list-btn" onclick="selectSubject('Chemistry')">📖 Chemistry</button>
+    <button class="list-btn" onclick="selectSubject('English')">📖 English</button>
+    <button class="list-btn" onclick="selectSubject('Economics')">📖 Economics</button>
+    <button class="list-btn" onclick="selectSubject('Citizenship')">📖 Citizenship</button>
+    <button class="list-btn" onclick="selectSubject('History')">📖 History</button>
+    <button class="list-btn" onclick="selectSubject('Geography')">📖 Geography</button>
+  </div>
+
+  <!-- STEP: MATERIAL CHAPTERS -->
+  <div id="step-chapter" class="card hidden">
+    <button class="btn-back" onclick="openPage('step-subject')">← Back</button>
+    <h2 id="selected-subject-title">Available Materials</h2>
+    <p style="margin-bottom:15px; color:#64748b; font-size:13px;">ኖት ወይም ጥያቄዎችን ይምረጡ፡</p>
+
+    <div id="materials-list">
+      <!-- Dynamic List -->
+    </div>
+  </div>
+
+  <!-- PAGE: EXAM PREPARATION -->
+  <div id="step-exam-prep" class="card hidden">
+    <button class="btn-back" onclick="openPage('step-home')">← Back Home</button>
+    <h2>📝 Exam Preparation</h2>
+    <p style="margin-bottom:15px; color:#64748b; font-size:13px;">የፈተና ሞዴሎችን እና የማጠቃለያ ጥያቄዎችን ይምረጡ፡</p>
+    
+    <button class="list-btn" onclick="selectItem('Mid-Exam Model Questions & Solutions', '10 Birr')">📄 Mid-Exam Practice Pack <span class="price-badge">10 Birr</span></button>
+    <button class="list-btn" onclick="selectItem('Final Exam Model Papers', '15 Birr')">📄 Final Exam Model Papers <span class="price-badge">15 Birr</span></button>
+    <button class="list-btn" onclick="selectItem('National Exam Preparation Pack', '20 Birr')">📄 National Exam Prep Pack <span class="price-badge">20 Birr</span></button>
+  </div>
+
+  <!-- PAGE: STUDENT PROFILE -->
+  <div id="step-profile" class="card hidden">
+    <button class="btn-back" onclick="openPage('step-home')">← Back Home</button>
+    <h2>👤 Student Profile</h2>
+    <p style="margin-bottom:15px; color:#64748b; font-size:13px;">የእርስዎን መረጃ እዚህ ይመዝግቡ፡</p>
+    
+    <label><b>ሙሉ ስም:</b></label>
+    <input type="text" id="profName" placeholder="ስምዎን ያስገቡ">
+    
+    <label><b>ስልክ ቁጥር:</b></label>
+    <input type="text" id="profPhone" placeholder="ስልክ ቁጥር ያስገቡ">
+    
+    <label><b>ክፍል (Grade):</b></label>
+    <input type="text" id="profGrade" placeholder="ለምሳሌ፡ Grade 9">
+    
+    <button class="btn-submit" onclick="saveProfile()">Save Profile</button>
+  </div>
+
+  <!-- PAGE: PAYMENT PAGE -->
+  <div id="step-payment" class="card hidden">
+    <button class="btn-back" onclick="openPage('step-chapter')">← Back</button>
+    <h2>💳 Payment Page</h2>
+    <p><b id="payment-details">Price: 10 Birr</b></p>
+    
+    <div class="telebirr-box">
+      <b style="color: #854d0e;">በTelebirr ክፍያ የሚፈጽሙበት ቁጥር፡</b>
+      <h2 style="color:#d97706; margin: 8px 0;">0908170534</h2>
+      <p style="margin:0; font-size:12px; color:#854d0e;">ክፍያውን ከፈጸሙ በኋላ የላኩበትን መረጃ ከታች ያስገቡ።</p>
+    </div>
+
+    <input type="text" id="studentName" placeholder="ሙሉ ስም">
+    <input type="text" id="studentPhone" placeholder="ስልክ ቁጥር">
+    <input type="text" id="txnRef" placeholder="የTelebirr Txn Number">
+    
+    <button class="btn-submit" onclick="submitPayment()">Submit Request</button>
+  </div>
+
+</div>
+
+<!-- BOTTOM NAVIGATION BAR -->
+<div class="bottom-nav">
+  <div class="nav-item active" onclick="openPage('step-home')">
+    <i class="fa-solid fa-house"></i>
+    <span>Home</span>
+  </div>
+  <div class="nav-item" onclick="openPage('step-grade')">
+    <i class="fa-solid fa-book"></i>
+    <span>Library</span>
+  </div>
+  <div class="nav-item" onclick="openPage('step-exam-prep')">
+    <i class="fa-solid fa-pen-to-square"></i>
+    <span>Exams</span>
+  </div>
+  <div class="nav-item" onclick="openPage('step-profile')">
+    <i class="fa-solid fa-user"></i>
+    <span>Profile</span>
+  </div>
+</div>
+
+<script>
+  let selectedData = { grade: '', subject: '', item: '', price: '' };
+
+  function toggleMenu() {
+    document.getElementById('menuDrawer').classList.toggle('open');
+  }
+
+  function openPage(pageId) {
+    document.querySelectorAll('.container > div').forEach(div => div.classList.add('hidden'));
+    document.getElementById(pageId).classList.remove('hidden');
+    document.getElementById('menuDrawer').classList.remove('open');
+    window.scrollTo(0,0);
+  }
+
+  function selectGrade(grade) {
+    selectedData.grade = grade;
+    document.getElementById('selected-grade-title').innerText = grade + " Subjects";
+    openPage('step-subject');
+  }
+
+  function selectSubject(subject) {
+    selectedData.subject = subject;
+    document.getElementById('selected-subject-title').innerText = subject + " Materials";
+    
+    const container = document.getElementById('materials-list');
+    container.innerHTML = '';
+    
+    const items = [
+      { name: "📘 Chapter 1 Full Note (Detailed)", price: "15 Birr" },
+      { name: "📝 Chapter 1 Practice Worksheet & Answers", price: "5 Birr" },
+      { name: "📘 Chapter 2 Full Note (Detailed)", price: "15 Birr" },
+      { name: "📝 Chapter 2 Practice Worksheet & Answers", price: "5 Birr" },
+      { name: "📘 Short Summary Notes", price: "10 Birr" }
+    ];
+    
+    items.forEach(item => {
+      const btn = document.createElement('button');
+      btn.className = 'list-btn';
+      btn.innerHTML = `${item.name} <span class="price-badge">${item.price}</span>`;
+      btn.onclick = () => selectItem(item.name, item.price);
+      container.appendChild(btn);
+    });
+    
+    openPage('step-chapter');
+  }
+
+  function selectItem(name, price) {
+    selectedData.item = name;
+    selectedData.price = price;
+    document.getElementById('payment-details').innerText = `የመረጡት፡ ${name} (${price})`;
+    
+    const savedName = localStorage.getItem('eNotes_profile_name');
+    const savedPhone = localStorage.getItem('eNotes_profile_phone');
+    if(savedName) document.getElementById('studentName').value = savedName;
+    if(savedPhone) document.getElementById('studentPhone').value = savedPhone;
+
+    openPage('step-payment');
+  }
+
+  function saveProfile() {
+    const name = document.getElementById('profName').value;
+    const phone = document.getElementById('profPhone').value;
+    const grade = document.getElementById('profGrade').value;
+
+    if(!name || !phone) {
+      alert("እባክዎን ስምዎን እና ስልክ ቁጥርዎን ያስገቡ!");
+      return;
+    }
+
+    localStorage.setItem('eNotes_profile_name', name);
+    localStorage.setItem('eNotes_profile_phone', phone);
+    localStorage.setItem('eNotes_profile_grade', grade);
+
+    alert("✅ መረጃዎ በተሳካ ሁኔታ ተቀምጧል!");
+    openPage('step-home');
+  }
+
+  function submitPayment() {
+    const name = document.getElementById('studentName').value;
+    const phone = document.getElementById('studentPhone').value;
+    const txn = document.getElementById('txnRef').value;
+
+    if(!name || !phone || !txn) {
+      alert("እባክዎን ሁሉንም መረጃዎች ይሙሉ!");
+      return;
+    }
+    
+    alert(`ጥያቄዎ በተሳካ ሁኔታ ተልኳል!\n\nየመረጡት፡ ${selectedData.item}\nክፍያዎ ሲረጋገጥ የትምህርት መረጃው ይላክልዎታል።`);
+    
+    document.getElementById('txnRef').value = '';
+    openPage('step-home');
+  }
+
+  window.onload = function() {
+    const savedName = localStorage.getItem('eNotes_profile_name');
+    const savedPhone = localStorage.getItem('eNotes_profile_phone');
+    const savedGrade = localStorage.getItem('eNotes_profile_grade');
+    
+    if(savedName) document.getElementById('profName').value = savedName;
+    if(savedPhone) document.getElementById('profPhone').value = savedPhone;
+    if(savedGrade) document.getElementById('profGrade').value = savedGrade;
+  };
+</script>
+
 </body>
-</html>
+  </html>
