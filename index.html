@@ -3,13 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Grade 9-12 Study</title>
+  <title>eNotes - Learn, Practice & Succeed</title>
+  
+  <meta name="theme-color" content="#2563eb">
+  <link rel="apple-touch-icon" href="https://img.icons8.com/color/180/books.png">
+  
   <style>
     * { box-sizing: border-box; font-family: Arial, sans-serif; }
     body { margin: 0; background-color: #f4f6f9; color: #333; }
-    header { background: #2563eb; color: white; text-align: center; padding: 25px 15px; }
-    header h1 { margin: 0; font-size: 26px; }
-    header p { margin: 5px 0 0; opacity: 0.9; }
+    header { background: #2563eb; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+    header h1 { margin: 0; font-size: 24px; font-weight: bold; }
+    
+    .menu-btn { background: none; border: none; color: white; font-size: 24px; cursor: pointer; }
     
     .container { max-width: 600px; margin: 20px auto; padding: 0 15px; }
     .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 20px; }
@@ -22,147 +27,282 @@
     .btn-card h3 { margin: 0; color: #2563eb; font-size: 16px; }
     .btn-card p { margin: 5px 0 0; font-size: 13px; color: #6b7280; }
     
-    .list-btn { display: block; width: 100%; padding: 12px; margin-bottom: 10px; background: white; border: 1.5px solid #2563eb; color: #2563eb; border-radius: 8px; font-weight: bold; text-align: center; cursor: pointer; }
+    .list-btn { display: block; width: 100%; padding: 12px; margin-bottom: 10px; background: white; border: 1.5px solid #2563eb; color: #2563eb; border-radius: 8px; font-weight: bold; text-align: left; cursor: pointer; }
     .list-btn:hover { background: #2563eb; color: white; }
     
     .btn-back { background: #4b5563; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; margin-bottom: 15px; }
     .btn-submit { background: #2563eb; color: white; border: none; width: 100%; padding: 12px; border-radius: 8px; font-size: 16px; cursor: pointer; margin-top: 10px; }
     
+    .social-section { display: flex; gap: 10px; margin-bottom: 20px; }
+    .social-btn { flex: 1; padding: 12px; text-align: center; color: white; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 14px; }
+    .telegram-btn { background-color: #0088cc; }
+    .tiktok-btn { background-color: #000000; }
+    
+    .invite-box { background: #e0f2fe; border: 1px solid #7dd3fc; padding: 15px; border-radius: 10px; margin-bottom: 20px; text-align: center; }
+    .invite-box h3 { margin: 0 0 8px 0; color: #0369a1; }
+    .invite-btn { background: #0284c7; color: white; border: none; padding: 10px 18px; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 8px; }
+    
+    .price-badge { float: right; background: #dcfce7; color: #166534; padding: 2px 8px; border-radius: 12px; font-size: 12px; font-weight: bold; }
+
     input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
     .hidden { display: none; }
     
     .telebirr-box { background: #fffbe3; border: 1px solid #ffe58f; padding: 15px; border-radius: 8px; margin: 15px 0; }
+    
+    /* Navigation Drawer / More Options Menu */
+    .menu-drawer { position: fixed; top: 0; right: -280px; width: 250px; height: 100%; background: white; box-shadow: -2px 0 10px rgba(0,0,0,0.1); transition: 0.3s; z-index: 1000; padding: 20px; }
+    .menu-drawer.open { right: 0; }
+    .menu-item { display: block; width: 100%; padding: 12px 0; border-bottom: 1px solid #eee; color: #333; text-decoration: none; font-size: 16px; cursor: pointer; text-align: left; background: none; border: none; }
+    .close-menu { background: #f3f4f6; border: none; padding: 8px; border-radius: 5px; cursor: pointer; float: right; }
+    
     footer { text-align: center; color: #6b7280; padding: 20px; font-size: 14px; }
   </style>
 </head>
 <body>
 
 <header>
-  <h1>📚 Grade 9-12 Study</h1>
-  <p>Learn • Practice • Succeed</p>
+  <h1>📖 eNotes</h1>
+  <button class="menu-btn" onclick="toggleMenu()">☰</button>
 </header>
+
+<!-- MORE OPTIONS MENU (DRAWER) -->
+<div id="menuDrawer" class="menu-drawer">
+  <button class="close-menu" onclick="toggleMenu()">✕ Close</button>
+  <h3 style="margin-top: 40px; color: #1e40af;">More Options</h3>
+  <button class="menu-item" onclick="openPage('step-profile')">👤 Student Profile</button>
+  <button class="menu-item" onclick="openPage('step-exam-prep')">📝 Exam Preparation</button>
+  <button class="menu-item" onclick="openPage('step-invite')">🎁 Invite & Earn</button>
+  <a href="https://t.me/Ethio_note0" target="_blank" class="menu-item">✈️ Telegram Channel</a>
+  <a href="https://www.tiktok.com/@ethio.s_" target="_blank" class="menu-item">🎵 TikTok Page</a>
+</div>
 
 <div class="container">
 
-  <!-- STEP 1: Welcome & Grade Selection -->
+  <!-- SOCIAL BUTTONS SECTION -->
+  <div class="social-section">
+    <a href="https://t.me/Ethio_note0" target="_blank" class="social-btn telegram-btn">✈️ Join Telegram</a>
+    <a href="https://www.tiktok.com/@ethio.s_" target="_blank" class="social-btn tiktok-btn">🎵 Follow TikTok</a>
+  </div>
+
+  <!-- INVITE & REFERRAL SECTION -->
+  <div id="step-invite-box" class="invite-box">
+    <h3>🎁 Invite Friends & Earn Rewards</h3>
+    <p style="margin: 5px 0; font-size: 14px;">Invite your friends using your link and get free study chapters or worksheets!</p>
+    <button class="invite-btn" onclick="shareInviteLink()">🔗 Copy Referral Link</button>
+  </div>
+
+  <!-- MAIN PAGE: Welcome & Grade Selection -->
   <div id="step-grade" class="card">
     <h2>Welcome Students 👋</h2>
-    <p>Grade 9-12 educational materials, notes, videos and practice questions.</p>
+    <p>Select your grade to access study notes, exam preparations, and worksheets.</p>
     
-    <h3 style="margin-top:20px;">Choose Your Grade</h3>
+    <div class="grid" style="margin-bottom: 20px;">
+      <div class="btn-card" style="background: #eff6ff; border-color: #2563eb;" onclick="openPage('step-exam-prep')">
+        <h3>📝 Exam Prep</h3>
+        <p>Model Exams & Practice</p>
+      </div>
+      <div class="btn-card" style="background: #f0fdf4; border-color: #16a34a;" onclick="openPage('step-profile')">
+        <h3>👤 Profile</h3>
+        <p>Student Details</p>
+      </div>
+    </div>
+
+    <h3>Choose Your Grade</h3>
     <div class="grid">
       <div class="btn-card" onclick="selectGrade('Grade 9')">
         <h3>Grade 9</h3>
-        <p>📖 Study Materials</p>
+        <p>📖 Notes & Worksheets</p>
       </div>
       <div class="btn-card" onclick="selectGrade('Grade 10')">
         <h3>Grade 10</h3>
-        <p>📖 Study Materials</p>
+        <p>📖 Notes & Worksheets</p>
       </div>
       <div class="btn-card" onclick="selectGrade('Grade 11')">
         <h3>Grade 11</h3>
-        <p>📖 Study Materials</p>
+        <p>📖 Notes & Worksheets</p>
       </div>
       <div class="btn-card" onclick="selectGrade('Grade 12')">
         <h3>Grade 12</h3>
-        <p>📖 Study Materials</p>
+        <p>📖 Notes & Worksheets</p>
       </div>
     </div>
   </div>
 
-  <!-- STEP 2: Subject Selection (12 Subjects) -->
+  <!-- PAGE: STUDENT PROFILE -->
+  <div id="step-profile" class="card hidden">
+    <button class="btn-back" onclick="openPage('step-grade')">← Back to Home</button>
+    <h2>👤 Student Profile</h2>
+    <p>Manage your account details:</p>
+    
+    <label><b>Full Name:</b></label>
+    <input type="text" id="profName" placeholder="Enter full name">
+    
+    <label><b>Phone Number:</b></label>
+    <input type="text" id="profPhone" placeholder="Enter phone number">
+    
+    <label><b>Grade:</b></label>
+    <input type="text" id="profGrade" placeholder="e.g. Grade 9">
+    
+    <button class="btn-submit" onclick="saveProfile()">Save Profile</button>
+  </div>
+
+  <!-- PAGE: EXAM PREPARATION -->
+  <div id="step-exam-prep" class="card hidden">
+    <button class="btn-back" onclick="openPage('step-grade')">← Back to Home</button>
+    <h2>📝 Exam Preparation</h2>
+    <p>Practice with model exams and past year questions:</p>
+    
+    <button class="list-btn" onclick="selectItem('Grade 9-12 Mid-Exam Practice Pack', '10 Birr')">📄 Mid-Exam Practice Questions <span class="price-badge">10 Birr</span></button>
+    <button class="list-btn" onclick="selectItem('Grade 9-12 Final Exam Model Papers', '15 Birr')">📄 Final Exam Model Papers <span class="price-badge">15 Birr</span></button>
+    <button class="list-btn" onclick="selectItem('National Exam (Ministry) Preparation', '20 Birr')">📄 National Exam Prep Questions <span class="price-badge">20 Birr</span></button>
+  </div>
+
+  <!-- STEP 2: Subject Selection -->
   <div id="step-subject" class="card hidden">
-    <button class="btn-back" onclick="showStep('step-grade')">← Back</button>
+    <button class="btn-back" onclick="openPage('step-grade')">← Back</button>
     <h2 id="selected-grade-title">Grade Subjects</h2>
     <p>Choose a subject:</p>
     
-    <button class="list-btn" onclick="selectSubject('Mathematics', 12)">📖 Mathematics</button>
-    <button class="list-btn" onclick="selectSubject('Physics', 10)">📖 Physics</button>
-    <button class="list-btn" onclick="selectSubject('Biology', 10)">📖 Biology</button>
-    <button class="list-btn" onclick="selectSubject('Chemistry', 10)">📖 Chemistry</button>
-    <button class="list-btn" onclick="selectSubject('Economics', 8)">📖 Economics</button>
-    <button class="list-btn" onclick="selectSubject('Citizenship', 7)">📖 Citizenship</button>
-    <button class="list-btn" onclick="selectSubject('HPE', 7)">📖 HPE</button>
-    <button class="list-btn" onclick="selectSubject('Amharic', 10)">📖 Amharic</button>
-    <button class="list-btn" onclick="selectSubject('IT', 8)">📖 IT</button>
-    <button class="list-btn" onclick="selectSubject('English', 10)">📖 English</button>
-    <button class="list-btn" onclick="selectSubject('History', 10)">📖 History</button>
-    <button class="list-btn" onclick="selectSubject('Geography', 10)">📖 Geography</button>
+    <button class="list-btn" onclick="selectSubject('Mathematics')">📖 Mathematics</button>
+    <button class="list-btn" onclick="selectSubject('Physics')">📖 Physics</button>
+    <button class="list-btn" onclick="selectSubject('Biology')">📖 Biology</button>
+    <button class="list-btn" onclick="selectSubject('Chemistry')">📖 Chemistry</button>
+    <button class="list-btn" onclick="selectSubject('English')">📖 English</button>
+    <button class="list-btn" onclick="selectSubject('Economics')">📖 Economics</button>
+    <button class="list-btn" onclick="selectSubject('Citizenship')">📖 Citizenship</button>
+    <button class="list-btn" onclick="selectSubject('Amharic')">📖 Amharic</button>
+    <button class="list-btn" onclick="selectSubject('IT')">📖 IT</button>
+    <button class="list-btn" onclick="selectSubject('History')">📖 History</button>
+    <button class="list-btn" onclick="selectSubject('Geography')">📖 Geography</button>
   </div>
 
-  <!-- STEP 3: Dynamic Chapter Selection -->
+  <!-- STEP 3: Content Selection -->
   <div id="step-chapter" class="card hidden">
-    <button class="btn-back" onclick="showStep('step-subject')">← Back</button>
-    <h2 id="selected-subject-title">Chapters</h2>
-    <p>Choose a chapter. Each chapter costs <b>10 Birr</b>.</p>
+    <button class="btn-back" onclick="openPage('step-subject')">← Back</button>
+    <h2 id="selected-subject-title">Available Materials</h2>
+    <p>Choose full notes or practice worksheets:</p>
 
-    <div id="chapters-list">
-      <!-- Dynamic Chapters Will Appear Here -->
+    <div id="materials-list">
+      <!-- Dynamic list -->
     </div>
   </div>
 
-  <!-- STEP 4: Payment Form -->
+  <!-- PAGE: PAYMENT PAGE -->
   <div id="step-payment" class="card hidden">
-    <button class="btn-back" onclick="showStep('step-chapter')">← Back</button>
-    <h2>💳 Chapter Payment</h2>
+    <button class="btn-back" onclick="openPage('step-chapter')">← Back</button>
+    <h2>💳 Payment Page</h2>
     <p><b id="payment-details">Price: 10 Birr</b></p>
     
     <div class="telebirr-box">
       <b>Pay using Telebirr to:</b>
       <h3 style="color:#d97706; margin: 5px 0;">0908170534</h3>
-      <p style="margin:0; font-size:13px;">After payment, enter your information below.</p>
+      <p style="margin:0; font-size:13px;">Complete payment via Telebirr, then enter transaction details below.</p>
     </div>
 
-    <input type="text" id="studentName" placeholder="Your name">
-    <input type="text" id="studentPhone" placeholder="Phone number">
-    <input type="text" id="txnRef" placeholder="Telebirr transaction/reference number">
+    <input type="text" id="studentName" placeholder="Your Full Name">
+    <input type="text" id="studentPhone" placeholder="Your Phone Number">
+    <input type="text" id="txnRef" placeholder="Telebirr Txn ID (or type 'INVITE')">
     
-    <button class="btn-submit" onclick="submitPayment()">Submit Payment</button>
+    <button class="btn-submit" onclick="submitPayment()">Submit Request</button>
   </div>
 
 </div>
 
 <footer>
-  © 2026 Grade 9-12 Study
+  © 2026 eNotes • Learn & Practice
 </footer>
 
 <script>
-  let selectedData = { grade: '', subject: '', chapter: '' };
+  let selectedData = { grade: '', subject: '', item: '', price: '' };
 
-  function showStep(stepId) {
-    document.querySelectorAll('.container > div').forEach(div => div.classList.add('hidden'));
-    document.getElementById(stepId).classList.remove('hidden');
+  // Setup Referral Link
+  let userId = localStorage.getItem('eNotes_user_id');
+  if(!userId) {
+    userId = 'ref_' + Math.random().toString(36).substring(2, 8);
+    localStorage.setItem('eNotes_user_id', userId);
+  }
+
+  function toggleMenu() {
+    document.getElementById('menuDrawer').classList.toggle('open');
+  }
+
+  function shareInviteLink() {
+    const inviteUrl = `${window.location.origin}${window.location.pathname}?ref=${userId}`;
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(inviteUrl);
+      alert("✅ Referral Link Copied!\n\nShare it with your friends to get free notes!");
+    } else {
+      alert("Referral Link: " + inviteUrl);
+    }
+  }
+
+  function openPage(pageId) {
+    document.querySelectorAll('.container > div.card').forEach(div => div.classList.add('hidden'));
+    document.getElementById(pageId).classList.remove('hidden');
+    document.getElementById('menuDrawer').classList.remove('open');
   }
 
   function selectGrade(grade) {
     selectedData.grade = grade;
     document.getElementById('selected-grade-title').innerText = grade + " Subjects";
-    showStep('step-subject');
+    openPage('step-subject');
   }
 
-  function selectSubject(subject, totalChapters) {
+  function selectSubject(subject) {
     selectedData.subject = subject;
-    document.getElementById('selected-subject-title').innerText = subject + " Chapters";
+    document.getElementById('selected-subject-title').innerText = subject + " Materials";
     
-    // Generate Chapter Buttons Dynamically
-    const container = document.getElementById('chapters-list');
+    const container = document.getElementById('materials-list');
     container.innerHTML = '';
     
-    for (let i = 1; i <= totalChapters; i++) {
+    const items = [
+      { name: "📘 Chapter 1 Detailed Notes", price: "15 Birr" },
+      { name: "📝 Chapter 1 Practice Worksheet", price: "5 Birr" },
+      { name: "📘 Chapter 2 Detailed Notes", price: "15 Birr" },
+      { name: "📝 Chapter 2 Practice Worksheet", price: "5 Birr" },
+      { name: "📘 Short Summary Notes", price: "10 Birr" }
+    ];
+    
+    items.forEach(item => {
       const btn = document.createElement('button');
       btn.className = 'list-btn';
-      btn.innerText = `📄 Chapter ${i}`;
-      btn.onclick = () => selectChapter(`Chapter ${i}`);
+      btn.innerHTML = `${item.name} <span class="price-badge">${item.price}</span>`;
+      btn.onclick = () => selectItem(item.name, item.price);
       container.appendChild(btn);
-    }
+    });
     
-    showStep('step-chapter');
+    openPage('step-chapter');
   }
 
-  function selectChapter(chapter) {
-    selectedData.chapter = chapter;
-    document.getElementById('payment-details').innerText = `${selectedData.grade} • ${selectedData.subject} • ${chapter} (10 Birr)`;
-    showStep('step-payment');
+  function selectItem(name, price) {
+    selectedData.item = name;
+    selectedData.price = price;
+    document.getElementById('payment-details').innerText = `Selected: ${name} (${price})`;
+    
+    // Auto fill name and phone from profile if saved
+    const savedName = localStorage.getItem('eNotes_profile_name');
+    const savedPhone = localStorage.getItem('eNotes_profile_phone');
+    if(savedName) document.getElementById('studentName').value = savedName;
+    if(savedPhone) document.getElementById('studentPhone').value = savedPhone;
+
+    openPage('step-payment');
+  }
+
+  function saveProfile() {
+    const name = document.getElementById('profName').value;
+    const phone = document.getElementById('profPhone').value;
+    const grade = document.getElementById('profGrade').value;
+
+    if(!name || !phone) {
+      alert("Please fill in your name and phone number!");
+      return;
+    }
+
+    localStorage.setItem('eNotes_profile_name', name);
+    localStorage.setItem('eNotes_profile_phone', phone);
+    localStorage.setItem('eNotes_profile_grade', grade);
+
+    alert("✅ Profile saved successfully!");
   }
 
   function submitPayment() {
@@ -171,20 +311,27 @@
     const txn = document.getElementById('txnRef').value;
 
     if(!name || !phone || !txn) {
-      alert("እባክዎን ሁሉንም መረጃዎች ይሙሉ!");
+      alert("Please fill in all details!");
       return;
     }
     
-    alert(`መረጃዎ በተሳካ ሁኔታ ተልኳል!\n\nክፍያዎ ሲረጋገጥ የ${selectedData.subject} (${selectedData.chapter}) ኖት ይከፈትልዎታል።`);
+    alert(`Request Sent Successfully!\n\nItem: ${selectedData.item}\nOnce payment is verified, access will be granted.`);
     
-    // Reset Form
-    document.getElementById('studentName').value = '';
-    document.getElementById('studentPhone').value = '';
     document.getElementById('txnRef').value = '';
-    
-    showStep('step-grade');
+    openPage('step-grade');
   }
+
+  // Auto load profile fields
+  window.onload = function() {
+    const savedName = localStorage.getItem('eNotes_profile_name');
+    const savedPhone = localStorage.getItem('eNotes_profile_phone');
+    const savedGrade = localStorage.getItem('eNotes_profile_grade');
+    
+    if(savedName) document.getElementById('profName').value = savedName;
+    if(savedPhone) document.getElementById('profPhone').value = savedPhone;
+    if(savedGrade) document.getElementById('profGrade').value = savedGrade;
+  };
 </script>
 
 </body>
-      </html>
+  </html>
